@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Kelas</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        .error { color: red; }
+    </style>
+</head>
+<body>
+
+    <h2>Edit Kelas: <span th:text="${classObj.name}"></span></h2>
+    
+    <p><a th:href="@{/classes}">Kembali ke Daftar Kelas</a></p>
+
+    <div th:if="${errorMessage}" class="error">
+        <p th:text="${errorMessage}"></p>
+    </div>
+
+    <form th:action="@{/classes/edit}" th:object="${classObj}" method="post">
+        
+        <input type="hidden" th:field="*{id}" />
+        
+        <div>
+            <label for="name">Nama Kelas:</label><br>
+            <input type="text" id="name" th:field="*{name}" required><br>
+        </div>
+
+        <div>
+            <label for="description">Deskripsi:</label><br>
+            <textarea id="description" th:field="*{description}"></textarea>
+        </div>
+        
+        <button type="submit">Update Kelas</button>
+    </form>
+
+</body>
+</html>

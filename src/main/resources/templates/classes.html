@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Daftar Kelas - Manajemen Kelas</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        table { width: 80%; border-collapse: collapse; margin-top: 20px; }
+        .success { color: green; font-weight: bold; }
+        .error { color: red; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <h2>Daftar Kelas 📚</h2>
+    
+    <p>
+        <a th:href="@{/classes/add}">+ Tambah Kelas Baru</a> |
+        <a th:href="@{/students}">Lihat Daftar Mahasiswa</a>
+    </p>
+
+    <div th:if="${successMessage}" class="success">
+        <p th:text="${successMessage}"></p>
+    </div>
+    <div th:if="${errorMessage}" class="error">
+        <p th:text="${errorMessage}"></p>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Nama Kelas</th>
+                <th>Total Mahasiswa</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="classObj, iterStat : ${classes}">
+                <td th:text="${iterStat.count}">1</td>
+                <td>
+                    <a th:href="@{/classes/{id}(id=${classObj.id})}" th:text="${classObj.name}">Nama Kelas A</a>
+                </td>
+                <td>
+                    <span th:text="${classObj.students != null ? classObj.students.size() : 0}">15</span>
+                </td>
+                <td>
+                    <a th:href="@{/classes/edit/{id}(id=${classObj.id})}">Edit</a> |
+                    
+                    <a th:href="@{/classes/delete/{id}(id=${classObj.id})}"
+                       onclick="return confirm('Apakah Anda yakin ingin menghapus kelas ini? Tindakan ini akan menghapus semua mahasiswanya (jika cascading diaktifkan) atau akan gagal jika cascading tidak aktif.')">Hapus</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>

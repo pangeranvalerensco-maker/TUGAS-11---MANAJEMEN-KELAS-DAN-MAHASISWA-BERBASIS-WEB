@@ -47,21 +47,40 @@ Hubungan antara `Class` (Kelas) dan `Student` (Mahasiswa) adalah hubungan **One-
 
 Berikut adalah struktur folder inti aplikasi, mengikuti pola MVC (Model-View-Controller):
 
-src/main/java/com.tugas11.mypackage
-├── controller/         // ClassController.java, StudentController.java
-├── model/              // Class.java, Student.java (JPA Entities)
-├── repository/         // ClassRepository.java, StudentRepository.java (Spring Data JPA)
-├── service/            // ClassService.java, StudentService.java
-└── ...
+```
+src/main/java/com/tugas11/mypackage
+├── controller/         
+│   ├── ClassController.java
+│   └── StudentController.java
+│
+├── model/              
+│   ├── Class.java
+│   └── Student.java
+│
+├── repository/         
+│   ├── ClassRepository.java
+│   └── StudentRepository.java
+│
+├── service/            
+│   ├── ClassService.java
+│   ├── StudentService.java
+│   └── impl/
+│       ├── ClassServiceImpl.java
+│       └── StudentServiceImpl.java
+│
+└── MypackageApplication.java
 
 src/main/resources/
-├── application.properties // Konfigurasi database db_class_management 
-└── templates/             // File HTML Thymeleaf (View) 
-    ├── classes.html 
-    ├── class-detail.html 
-    ├── students.html 
-    ├── add-class.html, edit-class.html 
-    └── add-student.html, edit-student.html 
+├── application.properties 
+└── templates/             
+    ├── classes.html
+    ├── class-detail.html
+    ├── students.html
+    ├── add-class.html
+    ├── edit-class.html
+    ├── add-student.html
+    └── edit-student.html
+```
 
 ### 6. 🛡️ Validasi Kunci (Manual)
 
@@ -73,5 +92,3 @@ Validasi diterapkan secara manual di lapisan Service, sesuai persyaratan:
 ### Link Video Demo
 * **Link YouTube**: `https://www.youtube.com/@pangeranvalerensco9928` 
 * **Isi Video**: Demo program, penjelasan alur Controller → Service → Repository, dan penjelasan One-to-Many serta Many-to-One .
-
----"# TUGAS-11---MANAJEMEN-KELAS-DAN-MAHASISWA-BERBASIS-WEB" 

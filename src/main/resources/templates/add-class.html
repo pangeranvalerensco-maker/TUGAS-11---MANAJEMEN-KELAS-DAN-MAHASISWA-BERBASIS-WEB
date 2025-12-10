@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Tambah Kelas</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        .error { color: red; }
+    </style>
+</head>
+<body>
+
+    <h2>Tambah Kelas Baru</h2>
+    
+    <p><a th:href="@{/classes}">Kembali ke Daftar Kelas</a></p>
+
+    <div th:if="${errorMessage}" class="error">
+        <p th:text="${errorMessage}"></p>
+    </div>
+
+    <form th:action="@{/classes/add}" th:object="${classObj}" method="post">
+        
+        <div>
+            <label for="name">Nama Kelas:</label><br>
+            <input type="text" id="name" th:field="*{name}" required><br>
+            </div>
+
+        <div>
+            <label for="description">Deskripsi:</label><br>
+            <textarea id="description" th:field="*{description}"></textarea>
+        </div>
+        
+        <button type="submit">Simpan Kelas</button>
+    </form>
+
+</body>
+</html>

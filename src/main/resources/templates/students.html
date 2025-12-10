@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Daftar Mahasiswa - Manajemen Kelas</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .success { color: green; font-weight: bold; }
+        .error { color: red; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <h2>Daftar Seluruh Mahasiswa 🎓</h2>
+    
+    <p>
+        <a th:href="@{/students/add}">+ Tambah Mahasiswa Baru</a> |
+        <a th:href="@{/classes}">Lihat Daftar Kelas</a>
+    </p>
+
+    <div th:if="${successMessage}" class="success">
+        <p th:text="${successMessage}"></p>
+    </div>
+    <div th:if="${errorMessage}" class="error">
+        <p th:text="${errorMessage}"></p>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Nama Mahasiswa</th>
+                <th>Email</th>
+                <th>Kelas</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="student, iterStat : ${students}">
+                <td th:text="${iterStat.count}">1</td>
+                <td th:text="${student.name}"></td>
+                <td th:text="${student.email}"></td>
+                <td>
+                    <a th:href="@{/classes/{id}(id=${student.aClass.id})}" th:text="${student.aClass.name}">Nama Kelas</a>
+                </td>
+                <td>
+                    <a th:href="@{/students/edit/{id}(id=${student.id})}">Edit</a> |
+                    <a th:href="@{/students/delete/{id}(id=${student.id})}"
+                       onclick="return confirm('Apakah Anda yakin ingin menghapus mahasiswa ini?')">Hapus</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>

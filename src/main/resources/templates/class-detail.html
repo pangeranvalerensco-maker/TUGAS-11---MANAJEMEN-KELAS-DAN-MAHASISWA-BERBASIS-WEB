@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detail Kelas</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h2 { border-bottom: 2px solid #333; padding-bottom: 5px; }
+        .detail-box { margin-bottom: 20px; padding: 15px; border: 1px solid #ccc; background-color: #f9f9f9; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        .no-students { color: gray; font-style: italic; }
+    </style>
+</head>
+<body>
+
+    <h2>Detail Kelas: <span th:text="${classObj.name}"></span></h2>
+    
+    <p><a th:href="@{/classes}">&#x2190; Kembali ke Daftar Kelas</a></p>
+
+    <div class="detail-box">
+        <h3>Informasi Kelas</h3>
+        <p><strong>Nama:</strong> <span th:text="${classObj.name}"></span></p>
+        <p><strong>Deskripsi:</strong> <span th:text="${classObj.description}"></span></p>
+        <p><strong>Tanggal Dibuat:</strong> <span th:text="${#temporals.format(classObj.createdAt, 'dd MMMM yyyy HH:mm')}"></span></p>
+        <p><strong>Total Mahasiswa:</strong> <span th:text="${classObj.students != null ? classObj.students.size() : 0}"></span></p>
+        
+        <p><a th:href="@{/classes/edit/{id}(id=${classObj.id})}">Edit Kelas Ini</a></p>
+    </div>
+
+    <h3>Daftar Mahasiswa di Kelas Ini</h3>
+    
+    <div th:if="${classObj.students == null || classObj.students.isEmpty()}" class="no-students">
+        <p>Belum ada mahasiswa di kelas ini.</p>
+    </div>
+
+    <table th:if="${classObj.students != null && !classObj.students.isEmpty()}">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Nama Mahasiswa</th>
+                <th>Email</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="student, iterStat : ${classObj.students}">
+                <td th:text="${iterStat.count}">1</td>
+                <td th:text="${student.name}"></td>
+                <td th:text="${student.email}"></td>
+                <td>
+                    <a th:href="@{/students/edit/{id}(id=${student.id})}">Edit</a> |
+                    <a th:href="@{/students/delete/{id}(id=${student.id})}"
+                       onclick="return confirm('Apakah Anda yakin ingin menghapus mahasiswa ini?')">Hapus</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>

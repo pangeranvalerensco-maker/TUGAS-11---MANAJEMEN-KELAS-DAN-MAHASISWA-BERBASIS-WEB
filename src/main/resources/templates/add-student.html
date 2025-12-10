@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Tambah Mahasiswa</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        .error { color: red; }
+    </style>
+</head>
+<body>
+
+    <h2>Tambah Mahasiswa Baru</h2>
+    
+    <p><a th:href="@{/students}">Kembali ke Daftar Mahasiswa</a></p>
+
+    <div th:if="${errorMessage}" class="error">
+        <p th:text="${errorMessage}"></p>
+    </div>
+
+    <form th:action="@{/students/add}" th:object="${student}" method="post">
+        
+        <div>
+            <label for="name">Nama Mahasiswa:</label><br>
+            <input type="text" id="name" th:field="*{name}" required><br>
+        </div>
+
+        <div>
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" th:field="*{email}" required><br>
+        </div>
+        
+        <div>
+            <label for="classId">Pilih Kelas:</label><br>
+            <select id="classId" th:field="*{aClass.id}" required>
+                <option value="">-- Pilih Kelas --</option>
+                <option th:each="classObj : ${classes}" 
+                        th:value="${classObj.id}" 
+                        th:text="${classObj.name}"
+                        th:selected="${student.aClass != null and classObj.id.equals(student.aClass.id)}">
+                </option>
+            </select><br>
+        </div>
+        
+        <button type="submit">Simpan Mahasiswa</button>
+    </form>
+
+</body>
+</html>
